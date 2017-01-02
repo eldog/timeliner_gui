@@ -603,7 +603,7 @@ function Timeliner( controller ) {
 	// Enter - play all
 	// k - keyframe
   var onKeyDown = function(e) {
-		var play = e.keyCode == 32; // space
+		var play = e.key === 'p'; 
 		var enter = e.keyCode == 13; //
 		var undo = e.metaKey && e.keyCode == 91 && !e.shiftKey;
 
@@ -677,8 +677,7 @@ function Timeliner( controller ) {
 		var domParent = pane.parentElement;
 		domParent.removeChild(pane);
 		domParent.removeChild(ghostpane);
-    document.removeEventListener(onKeyDown);
-    window.removeEventListener(resize);
+    document.removeEventListener('keydown', onKeyDown);
 
 	};
 
@@ -743,13 +742,13 @@ function Timeliner( controller ) {
 		// 	mouseOnTitle = false;
 		// });
 
-    var resize = function() {
+    var onResize = function() {
 			if (snapType)
 				resizeEdges();
 			else
 				needsResize = true;
 		};
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', onResize);
 
 		// utils
 		function setBounds(element, x, y, w, h) {
